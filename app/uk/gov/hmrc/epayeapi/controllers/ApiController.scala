@@ -28,6 +28,7 @@ import uk.gov.hmrc.domain.EmpRef
 import uk.gov.hmrc.epayeapi.models.ApiError.InvalidEmpRef
 import uk.gov.hmrc.epayeapi.models.Formats._
 import uk.gov.hmrc.epayeapi.models.{ApiError, EmpRefsResponse}
+import uk.gov.hmrc.play.binders.SimpleObjectBinder
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -88,16 +89,5 @@ trait ApiController extends BaseController with AuthorisedFunctions {
 }
 
 object ApiController {
-  implicit val empRefPathBinder: PathBindable[EmpRef] = new PathBindable[EmpRef] {
-    def bind(key: String, value: String): Either[String, EmpRef] = {
-      value.split("/") match {
-        case Array(taxOfficeNumber, taxOfficeReference) => Right(EmpRef(taxOfficeNumber, taxOfficeReference))
-        case other => Left("Could not URL part into EmpRef")
-      }
-    }
-
-    def unbind(key: String, value: EmpRef): String = {
-      s"${value.taxOfficeNumber}/${value.taxOfficeReference}"
-    }
-  }
+  implicit val empRefPathBinder = new SimpleObjectBinder[EmpRef](EmpRef.fromIdentifiers, _.encodedValue)
 }
