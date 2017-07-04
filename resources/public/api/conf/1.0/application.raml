@@ -32,39 +32,41 @@ types:
     pattern: "[a-zA-Z0-9]{3}/[a-zA-Z0-9]{7}"
 
 /epaye:
-  get:
-    is: [ headers.acceptHeader ]
-    displayName: Get access to ePAYE data
-    description: This resource is the entry point to the ePAYE API. It will return a set of URLs, allowing you to access ePAYE data for each account. This will include the employer's ePAYE balance, monthly totals of RTI charges, non-RTI charges and a breakdown of individual charges.
-    securedBy: [ sec.oauth_2_0: { scopes: [ "read:epaye" ] } ]
-    responses:
-      200:
-        body:
-          application/json:
-            type: !include schemas/Epaye.get.schema.array.json
-            example: !include examples/Epaye.get.array.json
-      401:
-        body:
-          application/json:
-            type: !include schemas/ErrorCodes.schema.json
-            examples:
-              notOpenStatus:
-                description: You don't currently have an ePAYE enrolment on this account.
-                value: |
-                  {
-                    "code" : "INSUFFICIENT_ENROLMENTS",
-                    "message" : "You are not currently enrolled for ePAYE"
-                  }
+  /:
+    get:
+      is: [ headers.acceptHeader ]
+      displayName: Get access to ePAYE data
+      description: This resource is the entry point to the ePAYE API. It will return a set of URLs, allowing you to access ePAYE data for each account. This will include the employer's ePAYE balance, monthly totals of RTI charges, non-RTI charges and a breakdown of individual charges.
+      (annotations.scope): "read:epaye"
+      securedBy: [ sec.oauth_2_0: { scopes: [ "read:epaye" ] } ]
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include schemas/Epaye.get.schema.array.json
+              example: !include examples/Epaye.get.array.json
+        401:
+          body:
+            application/json:
+              type: !include schemas/ErrorCodes.schema.json
+              examples:
+                notOpenStatus:
+                  description: You don't currently have an ePAYE enrolment on this account.
+                  value: |
+                    {
+                      "code" : "INSUFFICIENT_ENROLMENTS",
+                      "message" : "You are not currently enrolled for ePAYE"
+                    }
   /{empRef}/total:
     uriParameters:
       empRef:
-        description: A unique identifier composed of tax office number and tax office reference
+        description: A unique identifier made up of tax office number and tax office reference.
         type: string
         example: 111/A222222
     get:
       is: [ headers.acceptHeader ]
-      displayName: Total balance
-      description: This resource returns the outstanding credits and debits on your account.
+      displayName: Get ePAYE total balance
+      description: This resource returns the total balance including interest on your ePAYE account.
       (annotations.scope): "read:epaye"
       securedBy: [ sec.oauth_2_0: { scopes: [ "read:epaye" ] } ]
       responses:
@@ -79,7 +81,7 @@ types:
               type: !include schemas/ErrorCodes.schema.json
               examples:
                 notOpenStatus:
-                  description: You don't have currently an ePAYE enrolment on this account.
+                  description: You don't currently have an ePAYE enrolment on this account.
                   value: |
                     {
                       "code" : "INVALID_EMPREF",

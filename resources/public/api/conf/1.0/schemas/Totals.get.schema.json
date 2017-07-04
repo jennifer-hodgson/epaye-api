@@ -1,18 +1,18 @@
 {
   "type": "object",
-  "description": "An object containing the outstanding debits and outstanding credits",
+  "description": "An object containing the outstanding debits and credits.",
   "properties": {
     "_links": {
       "type": "object",
-      "description": "An object of links to explore further data",
+      "description": "An object of links to explore further data.",
       "properties": {
         "empRefs": {
           "type": "object",
-          "description": "An object holding the link back to the entry endpoint",
+          "description": "An object holding the link back to the entry endpoint.",
           "properties": {
             "href": {
               "type": "string",
-              "description": "Link to the entry endpoint"
+              "description": "Link to the entry endpoint."
             }
           }
         }
@@ -20,11 +20,11 @@
     },
     "credit": {
       "type": "integer",
-      "description": "The currently outstanding credits on your account."
+      "description": "The current credits on your account."
     },
     "debit": {
       "type": "integer",
-      "description": "The currently outstanding debits on your account."
+      "description": "The current debits on your account including interest."
     }
   }
 }

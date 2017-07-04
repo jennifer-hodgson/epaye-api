@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "description": "Wrapper object for individual EmpRefs",
+  "description": "Wrapper object for individual EmpRefs.",
   "properties": {
     "_embedded": {
       "type": "array",
@@ -10,12 +10,12 @@
         "properties": {
           "_links": {
             "type": "object",
-            "description": "An object of links to explore further data",
+            "description": "An object of links to explore further data.",
             "properties": {}
           },
           "empRef": {
             "type": "string",
-            "description": "An EmpRef is an employer reference number, made up of a tax office number and a tax office reference."
+            "description": "A unique identifier made up of tax office number and tax office reference."
           }
         }
       }
