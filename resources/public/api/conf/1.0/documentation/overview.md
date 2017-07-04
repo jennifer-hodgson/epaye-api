@@ -1,4 +1,4 @@
-This API retrieves data about <a href="https://www.gov.uk/paye-for-employers">PAYE for employers (ePAYE)</a>. It provides the following information:
+This API retrieves data about <a href="https://www.gov.uk/paye-for-employers">Pay As You Earn for employers (ePAYE)</a>. It provides the following information:
 
 * ePAYE balance including any interest owed
 * monthly totals of Real Time Information (RTI) charges
